@@ -1,12 +1,12 @@
 import os
-import torch.utils.data as data
-from PIL import Image
-from torchvision.transforms import Compose, Resize, RandomCrop, CenterCrop, RandomHorizontalFlip, RandomVerticalFlip, ToTensor, Normalize
+import tqdm
+import torch
 import random
 import pickle
 import imageio
-import torch
-from PIL import ImageFile
+import torch.utils.data as data
+from PIL import Image, ImageFile
+from torchvision.transforms import Compose, Resize, RandomCrop, CenterCrop, RandomHorizontalFlip, RandomVerticalFlip, ToTensor, Normalize
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 class unpaired_dataset(data.Dataset):
@@ -43,7 +43,7 @@ class unpaired_dataset(data.Dataset):
                 os.mkdir(os.path.join(self.dataroot, 'bin', Source_type))
                 print('no binary file for Source is detected')
                 print('making binary for Source ...')
-                for i in range(len(self.images_source)):
+                for i in tqdm.tqdm(range(len(self.images_source))):
                     f = os.path.join(self.dataroot, 'bin', Source_type, self.images_source[i].split('/')[-1].split('.')[0]+'.pt')
                     with open(f, 'wb') as _f:
                         pickle.dump(imageio.imread(self.images_source[i]), _f)
@@ -57,7 +57,7 @@ class unpaired_dataset(data.Dataset):
                 os.mkdir(os.path.join(self.dataroot, 'bin', Target_type))
                 print('no binary file for {} are detected'.format(Target_type))
                 print('making binary for {} ...'.format(Target_type))
-                for j in range(len(self.images_target)):
+                for j in tqdm.tqdm(range(len(self.images_target))):
                     f = os.path.join(self.dataroot, 'bin', Target_type, self.images_target[j].split('/')[-1].split('.')[0]+'.pt')
                     with open(f, 'wb') as _f:
                         pickle.dump(imageio.imread(self.images_target[j]), _f)
