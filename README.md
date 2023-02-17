@@ -34,7 +34,7 @@ Our ADM will retrieve downsampling between two datasets *Source* and *Target*, a
 
 ```
 cd src
-CUDA_VISIBLE_DEVICE=0 python train.py --source Source --target Target --name save_name --make_down
+CUDA_VISIBLE_DEVICES=0 python train.py --source Source --target Target --name save_name --make_down
 ```
 
 Generated downsampled version of *Source* will be saved at ```./experiments/save_name/down_results/```. Note that you can use *Source* and generated downsampled version of *Source* as **paired dataset** in conventional SR settings.
@@ -45,7 +45,7 @@ Here we additionally support joint training with SR network, which use intermedi
 
 ```
 cd src
-CUDA_VISIBLE_DEVICE=0 python train.py --source Source --target Target --name save_name --joint
+CUDA_VISIBLE_DEVICES=0 python train.py --source Source --target Target --name save_name --joint
 ```
 
 Default SR model is 'EDSR-baseline', but you can change with ```--sr_model```.
